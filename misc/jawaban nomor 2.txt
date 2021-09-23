@@ -1,0 +1,114 @@
+
+<?php
+  index();
+
+  function index(){
+    $array = array(
+      array(
+        'id' => 7,
+        'name' => 'Fhendi',
+        'height' => 172,
+        'phone' => 'Xiaomi',
+        'laptop' => 'Dell',
+        'color' => 'White'
+      ),
+      array(
+        'id' => 5,
+        'name' => 'Asep',
+        'height' => 170,
+        'phone' => 'Samsung',
+        'laptop' => 'Asus',
+        'color' => 'Purple'
+      ),
+      array(
+        'id' => 6,
+        'name' => 'Slamet',
+        'height' => 171,
+        'phone' => 'Samsung',
+        'laptop' => 'Asus',
+        'color' => 'Orange'
+      ),
+      array(
+        'id' => 1,
+        'name' => 'Darwin',
+        'height' => 170,
+        'phone' => 'Samsung',
+        'laptop' => 'Asus',
+        'color' => 'Red'
+      ),
+      array(
+        'id' => 4,
+        'name' => 'Raka',
+        'height' => 169,
+        'phone' => 'Asus',
+        'laptop' => 'Asus',
+        'color' => 'Green'
+      ),
+      array(
+        'id' => 2,
+        'name' => 'Ari',
+        'height' => 175,
+        'phone' => 'Samsung',
+        'laptop' => 'Apple',
+        'color' => 'Blue'
+      ),
+      array(
+        'id' => 3,
+        'name' => 'Okta',
+        'height' => 171,
+        'phone' => 'Realme',
+        'laptop' => 'Lenovo',
+        'color' => 'Yellow'
+      ),
+    );
+    $search_value = 'Re';
+    $sort_by = 'phone';
+    $sort_direction = 'ASC';//ASC, DESC
+
+    search_array($array, $search_value);
+    sort_array($array, $sort_by, $sort_direction);
+    show_array($array);
+  }
+
+  function search_array($array, $search_value){
+    echo '<h1>Search by '.$search_value.'</h1>';
+    $pattern = '/'.$search_value.'/i';
+    $matches = array_filter($array, function($a) use($pattern){
+      return preg_grep($pattern, $a);
+    });
+    foreach ($matches as $match) {
+      var_dump($match);
+      echo '<br>';
+    }
+  }
+
+  function sort_array($array, $sort_by, $sort_direction){
+    echo '<br>';
+    echo '<h1>Sort by '.$sort_by.' in '.$sort_direction.'</h1>';
+
+    // if asc
+    if($sort_direction === 'ASC'){
+      array_multisort(array_column($array, $sort_by), SORT_ASC, $array);
+    }
+
+    //if desc
+    if($sort_direction === 'DESC'){
+      array_multisort(array_column($array, $sort_by), SORT_DESC, $array);
+    }
+
+    // var dump things that sorted
+    foreach ($array as $arr) {
+      var_dump($arr);
+      echo '<br>';
+    }
+  }
+
+  function show_array($array){
+    echo '<br>';
+    echo '<h1>Normal Array</h1>';
+    foreach ($array as $arr) {
+      var_dump($arr);
+      echo '<br>';
+    }
+  }
+?>
